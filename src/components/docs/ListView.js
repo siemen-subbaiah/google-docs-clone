@@ -7,6 +7,14 @@ import { Link } from 'react-router-dom';
 const ListView = ({ doc }) => {
   const { deleteDocument, storeSingleDoc } = useContext(DocsContext);
 
+  const handleDelete = (id) => {
+    const prompt = window.confirm('Are you sure you want to delete this?');
+
+    if (prompt) {
+      deleteDocument(id);
+    }
+  };
+
   return (
     <section className='cursor-pointer' onClick={() => storeSingleDoc(doc)}>
       <div className='flex items-center justify-between my-5'>
@@ -20,7 +28,7 @@ const ListView = ({ doc }) => {
           </p>
           <MdDelete
             className='h-6 w-6 mr-3 text-gray-600 cursor-pointer'
-            onClick={() => deleteDocument(doc.id)}
+            onClick={() => handleDelete(doc.id)}
           />
         </div>
       </div>

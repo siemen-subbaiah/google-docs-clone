@@ -1,11 +1,8 @@
-import React, { useContext } from 'react';
-import { DocsContext } from '../../context/docs/DocsState';
+import React from 'react';
 
 import ListView from '../docs/ListView';
 
-const RecentDocs = () => {
-  const { docs } = useContext(DocsContext);
-
+const RecentDocs = ({ docs }) => {
   return (
     <section className='p-5 container md:px-48 mx-auto'>
       <div className='flex items-center justify-between'>

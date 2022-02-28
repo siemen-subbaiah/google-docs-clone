@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import { AuthContext } from '../../context/auth/AuthState';
 import AccountModal from '../../components/utils/AccountModal';
+import { DocsContext } from '../../context/docs/DocsState';
+import AppsModal from './AppsModal';
 
-const Header = () => {
+const Header = ({ searchTerm, setSearchTerm, setResults }) => {
   const { user } = useContext(AuthContext);
+
+  const { docs } = useContext(DocsContext);
 
   const [toggle, setToggle] = useState(false);
   const [toggle2, setToggle2] = useState(false);
+  const [toggle3, setToggle3] = useState(false);
 
   return (
     <>
@@ -18,12 +23,18 @@ const Header = () => {
           <div className='bg-gray-100 p-[0.7rem] rounded-md flex items-center w-[75%]'>
             <MdKeyboardBackspace
               className='h-6 w-6 mr-3 text-gray-600'
-              onClick={() => setToggle2(false)}
+              onClick={() => {
+                setResults(docs);
+                setSearchTerm('');
+                setToggle2(false);
+              }}
             />
             <input
               type='text'
               placeholder='Search'
               className='w-full bg-transparent text-black placeholder:text-gray-600 outline-none'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         ) : (
@@ -42,7 +53,19 @@ const Header = () => {
             type='text'
             placeholder='Search'
             className='w-full bg-transparent text-black placeholder:text-gray-600 outline-none'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
+          {searchTerm.length > 0 && (
+            <button
+              onClick={() => {
+                setResults(docs);
+                setSearchTerm('');
+              }}
+            >
+              cancel
+            </button>
+          )}
         </div>
 
         <div className='flex items-center mr-3'>
@@ -52,8 +75,19 @@ const Header = () => {
               onClick={() => setToggle2(!toggle2)}
             />
           )}
-          <MdApps className='h-6 w-6 mr-3 text-gray-500' />
-          <div onClick={() => setToggle(!toggle)}>
+          <MdApps
+            className='h-6 w-6 mr-5 text-gray-500 cursor-pointer'
+            onClick={() => {
+              setToggle(false);
+              setToggle3(!toggle3);
+            }}
+          />
+          <div
+            onClick={() => {
+              setToggle(!toggle);
+              setToggle3(false);
+            }}
+          >
             <img
               src={user?.photo}
               alt='account'
@@ -63,6 +97,7 @@ const Header = () => {
         </div>
       </nav>
       {toggle && <AccountModal />}
+      {toggle3 && <AppsModal />}
     </>
   );
 };
