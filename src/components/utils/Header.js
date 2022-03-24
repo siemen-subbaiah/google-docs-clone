@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { MdMenu, MdApps, MdSearch, MdKeyboardBackspace } from 'react-icons/md';
+import { MdApps, MdSearch, MdKeyboardBackspace } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import { AuthContext } from '../../context/auth/AuthState';
