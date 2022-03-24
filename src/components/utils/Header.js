@@ -39,7 +39,6 @@ const Header = ({ searchTerm, setSearchTerm, setResults }) => {
           </div>
         ) : (
           <div className='flex items-center ml-3'>
-            <MdMenu className='h-6 w-6 mr-3 text-gray-600' />
             <Link to='/' className='flex items-center md:ml-1'>
               <img src={logo} alt='logo' className='h-10 hidden md:block' />
               <h3 className='text-[1.4rem] md:ml-2 text-gray-600'>Docs</h3>
